@@ -59,7 +59,18 @@
           <td><%= stats[i]["motorVehicleTheft"] %></td>
         </tr>
         <%} %>
-      </tbody>
+        <tr>
+          <td>Trends!</td>
+          <%for(category in stats['2017']){%>
+            <%let trend = category + " has decreased :)"%>
+            <%if(parseInt(stats['2021'][category]) > parseInt(stats['2017'][category])){%>
+              <%trend = category + " has increased :("%>
+            <%} if(parseInt(stats['2021'][category]) == parseInt(stats['2017'][category])){%>
+              <%trend = category+" roughly the same";%>
+              <%}%>
+              <td><%=trend%></td>
+          <%}%>
+        </tr>
     </table>
   </section>
 
@@ -151,6 +162,7 @@
     <div>
       <%=name%> has <%=stats["indexTotal"]%> total crimes compared to the State average of <%=stateAvg["indexTotal"]%> total Crimes in the last 5 Years
       <div>
+        
         <section>
           <div id="chart2"></div>
           <script>
@@ -173,11 +185,14 @@
                       lines: [{value:0}]
                   }
               },
+              title:{
+                text:"Avergae Crimes in comparison to the State Average"
+              },
               axis: {
                 x: {
                   type:"category",
                   categories: ['Murder', 'Rape', 'Robbery', "Aggravated Assault", "Burglary", "Motor Vehicle Theft"],
-                }
+                },
               }
             });
           </script>
